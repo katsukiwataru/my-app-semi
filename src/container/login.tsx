@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import firebase from '../firebase';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { User } from '../context/userContext';
 import LoginComonents from '../components/login';
 
 const Login: React.FC = () => {
   const [user, setUser] = useState();
-
-  const signIn = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithRedirect(provider);
+  const uiConfig = {
+    signInSuccessUrl: '/',
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+      firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+    ],
   };
 
   const signOut = () => {
@@ -24,7 +28,8 @@ const Login: React.FC = () => {
 
   return (
     <User.Provider value={user}>
-      <LoginComonents signIn={signIn} signOut={signOut} />
+      <LoginComonents signOut={signOut} />
+      {!user && <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />}
     </User.Provider>
   );
 };
