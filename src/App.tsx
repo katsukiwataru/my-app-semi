@@ -1,18 +1,11 @@
 import React from 'react';
-import firebase from './firebase';
+import Login from './container/login';
 
 const App: React.FC = () => {
-  const login = () => {
-    console.log(firebase);
-  };
-  login();
-
   return (
-    <>
-      <div>
-        <p>aa</p>
-      </div>
-    </>
+    <div>
+      <Login />
+    </div>
   );
 };
 
