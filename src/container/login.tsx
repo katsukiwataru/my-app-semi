@@ -8,11 +8,7 @@ const Login: React.FC = () => {
   const [user, setUser] = useState();
   const uiConfig = {
     signInSuccessUrl: '/',
-    signInOptions: [
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-      firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-    ],
+    signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID, firebase.auth.TwitterAuthProvider.PROVIDER_ID],
   };
 
   const signOut = () => {
@@ -28,7 +24,7 @@ const Login: React.FC = () => {
 
   return (
     <User.Provider value={user}>
-      <LoginComonents signOut={signOut} />
+      {user && <LoginComonents signOut={signOut} />}
       {!user && <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />}
     </User.Provider>
   );
