@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import firebase from '../firebase';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { User } from '../context/userContext';
-import LoginComonents from '../components/login';
+import Header from '../components/page';
 
 const Login: React.FC = () => {
   const [user, setUser] = useState();
@@ -24,7 +24,11 @@ const Login: React.FC = () => {
 
   return (
     <User.Provider value={user}>
-      {user && <LoginComonents signOut={signOut} />}
+      {user && (
+        <div>
+          <Header signOut={signOut} />
+        </div>
+      )}
       {!user && <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />}
     </User.Provider>
   );

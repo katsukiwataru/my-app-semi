@@ -6,15 +6,27 @@ type Props = {
   signOut: () => void;
 };
 
-const Login: React.FC<Props> = ({ signOut }) => {
+const Top: React.FC<Props> = ({ signOut }) => {
   const user = useUserContext();
   return (
-    <div>
-      <Button onClick={signOut}>sign out</Button>
-      {user && <p>{user.displayName}</p>}
-    </div>
+    <Header>
+      <p>{user.displayName}</p>
+      <div>
+        <Button>Post</Button>
+      </div>
+      <div>
+        <Button onClick={signOut}>sign out</Button>
+      </div>
+    </Header>
   );
 };
+
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  margin: 30px;
+  align-items: center;
+`;
 
 const Button = styled.button`
   direction: ltr;
@@ -48,5 +60,4 @@ const Button = styled.button`
   text-decoration: none;
   vertical-align: middle;
 `;
-
-export default Login;
+export default Top;
