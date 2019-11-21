@@ -9,6 +9,7 @@ module.exports = {
   output: {
     path: dist,
     filename: 'js/index.js',
+    publicPath: '/',
   },
   devtool: 'source-map',
   resolve: {
@@ -20,6 +21,7 @@ module.exports = {
     contentBase: dist,
     watchContentBase: true,
     port: 3000,
+    historyApiFallback: true,
   },
   module: {
     rules: [
