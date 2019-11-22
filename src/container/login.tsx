@@ -1,37 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import firebase from '../firebase';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import { User } from '../context/userContext';
-import Header from '../components/page';
+import useUserContext from '../context/userContext';
 
 const Login: React.FC = () => {
-  const [user, setUser] = useState();
+  const { user } = useUserContext();
   const uiConfig = {
     signInSuccessUrl: '/',
     signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID, firebase.auth.TwitterAuthProvider.PROVIDER_ID],
   };
 
-  const signOut = () => {
-    firebase.auth().signOut();
-  };
-
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      console.log(user);
-      setUser(user);
-    });
-  }, []);
-
-  return (
-    <User.Provider value={user}>
-      {user && (
-        <div>
-          <Header signOut={signOut} />
-        </div>
-      )}
-      {!user && <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />}
-    </User.Provider>
-  );
+  return <div>{!user && <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />}</div>;
 };
 
 export default Login;
