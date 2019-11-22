@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { firestore } from '../firebase';
 import useUserContext from '../context/userContext';
+import history from '../plugins/history';
 
 const Post: React.FC = () => {
   const { user } = useUserContext();
@@ -8,13 +9,17 @@ const Post: React.FC = () => {
 
   console.log(user);
 
+  if (!user) {
+    history.push(`/`);
+    return null;
+  }
+
   const sendInputValue = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      // const hoge = () => {
       try {
         const responsePost = await firestore
           .collection('user')
-          .doc('LA')
+          .doc()
           .set({
             name: text,
           });
