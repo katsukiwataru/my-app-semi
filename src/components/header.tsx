@@ -1,19 +1,21 @@
 import React from 'react';
-import { useUserContext } from '../context/userContext';
+import useUserContext from '../context/userContext';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-type Props = {
-  signOut: () => void;
-};
+type Props = {};
 
-const Top: React.FC<Props> = ({ signOut }) => {
-  const user = useUserContext();
+const Top: React.FC<Props> = () => {
+  const { user, signOut } = useUserContext();
+  if (!user) {
+    return null;
+  }
   return (
     <Header>
       <p>{user.displayName}</p>
-      <div>
+      <Link to={`/post/`}>
         <Button>Post</Button>
-      </div>
+      </Link>
       <div>
         <Button onClick={signOut}>sign out</Button>
       </div>
