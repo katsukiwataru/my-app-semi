@@ -17,12 +17,14 @@ export const UserProvider: FC = ({ children }) => {
   };
 
   useEffect(() => {
+    console.log('In Effect');
     firebase.auth().onAuthStateChanged((user) => {
       setUser(user as User);
     });
-  }, []);
+  }, [user]);
 
   const value = useMemo<UserState>(() => {
+    console.log('In Memo');
     return { signOut, user };
   }, [user]);
 
