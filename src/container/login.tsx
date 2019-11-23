@@ -28,24 +28,28 @@ const Login: React.FC = () => {
   return (
     <div>
       {!user && <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />}
-      <ItemDiv>
+      <ItemsDiv>
         {PostData.map((item, index) => {
           return (
             <React.Fragment key={index}>
-              <div>
+              <ItemDiv>
                 <p>{item.text}</p>
-              </div>
+              </ItemDiv>
             </React.Fragment>
           );
         })}
-      </ItemDiv>
+      </ItemsDiv>
     </div>
   );
 };
 
-const ItemDiv = styled.div`
+const ItemsDiv = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  flex-wrap: wrap;
 `;
 
+const ItemDiv = styled.div`
+  margin: 50px;
+`;
 export default Login;
