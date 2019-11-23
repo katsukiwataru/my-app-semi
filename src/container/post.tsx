@@ -13,7 +13,7 @@ const Post: React.FC = () => {
     return null;
   }
 
-  const sendInputValue = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const sendInputValue = async (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter') {
       try {
         await firestore
@@ -32,11 +32,10 @@ const Post: React.FC = () => {
 
   return (
     <div>
-      <Input
-        type="text"
+      <TextArea
         value={text}
         placeholder="コツの掴み方"
-        onKeyPress={(e) => sendInputValue(e as React.KeyboardEvent<HTMLInputElement>)}
+        onKeyPress={(e) => sendInputValue(e)}
         onChange={(e) => {
           setText(e.target.value);
         }}
@@ -45,7 +44,7 @@ const Post: React.FC = () => {
   );
 };
 
-const Input = styled.input`
+const TextArea = styled.textarea`
   font-size: 18px;
   padding: 10px 10px 10px 5px;
   display: block;
