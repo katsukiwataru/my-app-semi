@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import firebase, { firestore } from '../firebase';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import useUserContext from '../context/userContext';
+import styled from 'styled-components';
 
 const Login: React.FC = () => {
   const [PostData, setPostData] = useState<PostData[]>([]);
@@ -26,17 +27,25 @@ const Login: React.FC = () => {
 
   return (
     <div>
-      <div>{!user && <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />}</div>
-      {PostData.map((item, index) => {
-        return (
-          <React.Fragment key={index}>
-            <p>{item.id}</p>
-          </React.Fragment>
-        );
-      })}
-      <div></div>
+      {!user && <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />}
+      <ItemDiv>
+        {PostData.map((item, index) => {
+          return (
+            <React.Fragment key={index}>
+              <div>
+                <p>{item.text}</p>
+              </div>
+            </React.Fragment>
+          );
+        })}
+      </ItemDiv>
     </div>
   );
 };
+
+const ItemDiv = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
 
 export default Login;
