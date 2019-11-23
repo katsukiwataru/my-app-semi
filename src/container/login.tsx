@@ -23,7 +23,7 @@ const Login: React.FC = () => {
       }
     };
     getPostData();
-  });
+  }, []);
 
   return (
     <div>
