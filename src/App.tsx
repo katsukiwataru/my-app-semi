@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from './container/login';
+import Login from './container/home';
 import Post from './container/post';
 import { Router, Route, Switch } from 'react-router-dom';
 import history from './plugins/history';

@@ -31,6 +31,7 @@ export const UserProvider: FC = ({ children }) => {
   };
 
   useEffect(() => {
+    console.log(user);
     addUser();
     firebase.auth().onAuthStateChanged((user) => {
       setUser(user as User);
