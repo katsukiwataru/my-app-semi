@@ -15,30 +15,50 @@ const Login: React.FC = () => {
   const getPostData = async () => {
     try {
       const postQuerySnapshot: any = await firestore.collection('post').get();
-      const records = postQuerySnapshot.docs.map((elem: any) => elem.data());
+      const records = postQuerySnapshot.docs.map((elem: any) => {
+        return elem.data();
+      });
       setPostData(records);
-      // let hoge: any = [];
-      // records.map((ele: any) => {
-      //   const func = async () => {
-      //     try {
-      //       const QuerySnapshot = await firestore.collection('user').doc(`${ele.id}`);
-      //       const records = await QuerySnapshot.get();
-      //       const resUser: any = records.data();
-      //       hoge.push(resUser.name);
-      //     } catch (error) {
-      //       console.log(error);
-      //     }
-      //   };
-      //   func();
-      // });
     } catch (error) {
       console.log(error);
     }
   };
 
+  const getUser = async () => {
+    const hoge = PostData.map((ele) => ele.id);
+    console.log(hoge);
+    // try {
+    //   const postQuerySnapshot = await firestore.collection('user').get();
+    //   const records = postQuerySnapshot.docs.map((elem: any) => {
+    //     console.log(elem, elem);
+    //     return elem.data();
+    //   });
+    //   console.log(hoge, records);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    // const datas: any = [];
+    // try {
+    //   const aaa = hoge.map((item) => {
+    //     const data = QuerySnapshot.data();
+    //     datas.push(data.name);
+    //     return data.name;
+    //   });
+    //   console.log(aaa);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    // console.log(datas);
+    // return user;
+  };
+
   useEffect(() => {
     getPostData();
   }, []);
+
+  useEffect(() => {
+    getUser();
+  }, [PostData]);
 
   return (
     <div>
