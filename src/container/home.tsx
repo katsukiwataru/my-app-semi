@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 const Login: React.FC = () => {
   const [PostData, setPostData] = useState<PostData[]>([]);
+  const [nameCache, setNameCache] = useState<Record<string, string>>({});
   const { user } = useUserContext();
   const uiConfig = {
     signInSuccessUrl: '/',
@@ -25,31 +26,23 @@ const Login: React.FC = () => {
   };
 
   const getUser = async () => {
-    const hoge = PostData.map((ele) => ele.id);
-    console.log(hoge);
-    // try {
-    //   const postQuerySnapshot = await firestore.collection('user').get();
-    //   const records = postQuerySnapshot.docs.map((elem: any) => {
-    //     console.log(elem, elem);
-    //     return elem.data();
-    //   });
-    //   console.log(hoge, records);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // const datas: any = [];
-    // try {
-    //   const aaa = hoge.map((item) => {
-    //     const data = QuerySnapshot.data();
-    //     datas.push(data.name);
-    //     return data.name;
-    //   });
-    //   console.log(aaa);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // console.log(datas);
-    // return user;
+    const userIds = PostData.map((ele) => ele.id);
+    try {
+      const cache = await Promise.all(
+        userIds.flatMap(async (id) => {
+          const QuerySnapshot = await firestore
+            .collection('user')
+            .doc(id)
+            .get();
+          const { name } = QuerySnapshot.data() as { name: string };
+          return [id, name] as const;
+        }),
+      );
+      console.log(cache);
+      setNameCache(Object.fromEntries(cache));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -70,6 +63,7 @@ const Login: React.FC = () => {
               <React.Fragment key={index}>
                 <ItemDiv>
                   <p>{item.text}</p>
+                  <span>{nameCache[item.id]}</span>
                 </ItemDiv>
               </React.Fragment>
             );

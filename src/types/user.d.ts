@@ -7,4 +7,5 @@ declare type User = {
 declare type PostData = {
   id: string;
   text: string;
+  name: string;
 };
