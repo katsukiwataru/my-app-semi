@@ -38,7 +38,6 @@ const Login: React.FC = () => {
           return [id, name] as const;
         }),
       );
-      console.log(cache);
       setNameCache(Object.fromEntries(cache));
     } catch (error) {
       console.log(error);
@@ -55,21 +54,30 @@ const Login: React.FC = () => {
 
   return (
     <div>
-      {!user && <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />}
-      {user && (
-        <ItemsDiv>
-          {PostData.map((item, index) => {
-            return (
-              <React.Fragment key={index}>
-                <ItemDiv>
-                  <p>{item.text}</p>
-                  <span>{nameCache[item.id]}</span>
-                </ItemDiv>
-              </React.Fragment>
-            );
-          })}
-        </ItemsDiv>
-      )}
+      <div>
+        {!user && (
+          <div>
+            <div></div>
+            <FirebaseLogin>
+              <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+            </FirebaseLogin>
+          </div>
+        )}
+        {user && (
+          <ItemsDiv>
+            {PostData.map((item, index) => {
+              return (
+                <React.Fragment key={index}>
+                  <ItemDiv>
+                    <p>{item.text}</p>
+                    <span>{nameCache[item.id]}</span>
+                  </ItemDiv>
+                </React.Fragment>
+              );
+            })}
+          </ItemsDiv>
+        )}
+      </div>
     </div>
   );
 };
@@ -78,6 +86,13 @@ const ItemsDiv = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+`;
+
+const FirebaseLogin = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const ItemDiv = styled.div`

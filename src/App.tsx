@@ -10,6 +10,9 @@ const App: React.FC = () => {
   return (
     <>
       <Router history={history}>
+        {/* <div>
+          <h1>コツを掴むコツを掴む</h1>
+        </div> */}
         <UserProvider>
           <Header />
           <Switch>
